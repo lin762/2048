@@ -26,39 +26,72 @@ public class TwentyFortyEight {
     public int numBlanks() {
         int blankCount = 0;
         for(int i = 0; i < board.length; i++){
-            for(int j = 0; j < board[].length; i++){
-                
+            for(int j = 0; j < board[i].length; j++){
+                if(board[i][j] == 2){
+                    blankCount++;
+                }
             }
         }
+        return blankCount;
     }
 
     //This function places a 2 at a random blank space on the board.
     //It does nothing if there are no blank spaces.
     public void placeRandom(){
-        // TODO
+        int randPos1 = Random.randInt(board.length);
+        int randPos2 = Random.randInt(board.length);
+        if(numBlanks() == 0){
+            return;
+        }else if(board[randPos1][randPos2] == 0){
+            board[randPos1][randPos2] == 2;
+        }else{
+            placeRandom();
+        }
     }
 
     //This function attempts to move a cell at coordinates fromRow,fromCol to
     //the cell toRow,toCol. Refer to the handout for movement rules.
     public boolean moveTo(int fromRow, int fromCol, int toRow, int toCol) {
-        // TODO
+        if((fromRow < board.length && fromRow >= board[0].length)&&
+            (toRow < board.length && toRow >= board[0].length)&&
+            (fromCol < board.length && fromCol >= board[0].length)&&
+            (toCol < board.length && toCol >= board[0].length)){
+            if(board[fromRow][fromCol] == 0){
+                return false;
+            }else if(board[toRow][toCol] == 0){
+                board[toRow][toCol] = board[fromRow][fromCol];
+                board[fromRow][fromCol] = 0;
+                return true;
+            }else if(board[toRow][toCol] == board[fromRow][fromCol]){
+                board[toRow][toCol] *= 2;
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
     }
 
     //The following four functions move the board in a single direction.
     public boolean moveUp(){
         // TODO
+        return false;
     }
 
     public boolean moveDown() {
         // TODO
+        return false;
     }
 
     public boolean moveRight() {
         // TODO
+        return false;
     }
 
     public boolean moveLeft() {
         // TODO
+        return false;
     }
 
     ////////////////////////////////////////////////////////////////////////
