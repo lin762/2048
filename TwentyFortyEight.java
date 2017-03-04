@@ -47,36 +47,38 @@ public class TwentyFortyEight {
         if(numBlanks() == 0){
             return;
         }else{
-            int randomVal = rand.nextInt(numBlanks());
+            int randomVal = rand.nextInt(numBlanks()+1);
             int blankCount = 0;
             for(int i = 0; i < board.length; i++){
-            for(int j = 0; j < board[i].length; j++){
-                if(board[i][j] == 0){
-                    blankCount++;
-                    if(blankCount == randomVal){
-                        board[i][j] = 2;
+                for(int j = 0; j < board[i].length; j++){
+                    if(board[i][j] == 0){
+                        blankCount++;
+                        if(blankCount == randomVal){
+                            board[i][j] = 2;
+                        }
                     }
                 }
             }
-        }
         }
     }
 
     //This function attempts to move a cell at coordinates fromRow,fromCol to
     //the cell toRow,toCol. Refer to the handout for movement rules.
     public boolean moveTo(int fromRow, int fromCol, int toRow, int toCol) {
-        if((fromRow < board.length && fromRow >= board[0].length)&&
-            (toRow < board.length && toRow >= board[0].length)&&
-            (fromCol < board.length && fromCol >= board[0].length)&&
-            (toCol < board.length && toCol >= board[0].length)){
+        if((fromRow < board.length && fromRow >= 0)&&
+                (toRow < board.length && toRow >= 0)&&
+                (fromCol < board.length && fromCol >= 0)&&
+                (toCol < board.length && toCol >= 0)){
             if(board[fromRow][fromCol] == 0){
                 return false;
             }else if(board[toRow][toCol] == 0){
                 board[toRow][toCol] = board[fromRow][fromCol];
                 board[fromRow][fromCol] = 0;
                 return true;
-            }else if(board[toRow][toCol] == board[fromRow][fromCol]){
-                board[toRow][toCol] *= 2;
+            }else if(board[fromRow][fromCol] == board[toRow][toCol]){
+                board[toRow][toCol] = board[toRow][toCol]*2;
+                board[fromRow][fromCol] = 0;
+                updateScore(board[toRow][toCol]);
                 return true;
             }else{
                 return false;
@@ -89,26 +91,34 @@ public class TwentyFortyEight {
     //The following four functions move the board in a single direction.
     public boolean moveUp(){
         for(int i = 0; i < board.length; i++){
-            for(int j = 1; j <board.length 0; j++){
-                if(board[i][j] == 0)
+            for(int j = 1; j < board.length; j++){
+                moveTo(j,i,j-1,i);
             }
-        }
-        return false;
+        }return false;
     }
 
     public boolean moveDown() {
-        // TODO
-        return false;
+        for(int i = 0; i < board.length; i++){
+            for(int j = board.length-2; j >=0; j--){
+                moveTo(j,i,j+1,i);
+            }
+        }return false;
     }
 
     public boolean moveRight() {
-        // TODO
-        return false;
+        for(int i = 0; i < board.length; i++){
+            for(int j = board.length-2; j >= 0; j--){
+                moveTo(i,j,i,j+1);
+            }
+        }return false;
     }
 
     public boolean moveLeft() {
-        // TODO
-        return false;
+        for(int i = 0; i < board.length; i++){
+            for(int j = 1; j < board.length; j++){
+                moveTo(i,j,i,j-1);
+            }
+        }return false;
     }
 
     ////////////////////////////////////////////////////////////////////////
