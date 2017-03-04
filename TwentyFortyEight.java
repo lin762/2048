@@ -6,9 +6,11 @@ public class TwentyFortyEight {
     private int[][] board;
     //This variable keeps track of the current score.
     private int score;
+    private int boardWidth;
 
     //Constructor
     public TwentyFortyEight(int boardWidth){
+        this.boardWidth = boardWidth;
         board = new int[boardWidth][boardWidth];
         score = 0;
         placeRandom();
@@ -16,8 +18,7 @@ public class TwentyFortyEight {
 
     //This function resets the board to its initial state
     public void reset() {
-        int dimension = board.length;
-        board = new int[dimension][dimension];
+        board = new int[boardWidth][boardWidth];
         score = 0;
         placeRandom();
     }
@@ -27,7 +28,7 @@ public class TwentyFortyEight {
         int blankCount = 0;
         for(int i = 0; i < board.length; i++){
             for(int j = 0; j < board[i].length; j++){
-                if(board[i][j] == 2){
+                if(board[i][j] == 0){
                     blankCount++;
                 }
             }
@@ -35,17 +36,29 @@ public class TwentyFortyEight {
         return blankCount;
     }
 
+    public void updateScore(int a){
+        score+=a;
+    }
+
     //This function places a 2 at a random blank space on the board.
     //It does nothing if there are no blank spaces.
     public void placeRandom(){
-        int randPos1 = Random.randInt(board.length);
-        int randPos2 = Random.randInt(board.length);
+        Random rand = new Random();
         if(numBlanks() == 0){
             return;
-        }else if(board[randPos1][randPos2] == 0){
-            board[randPos1][randPos2] == 2;
         }else{
-            placeRandom();
+            int randomVal = rand.nextInt(numBlanks());
+            int blankCount = 0;
+            for(int i = 0; i < board.length; i++){
+            for(int j = 0; j < board[i].length; j++){
+                if(board[i][j] == 0){
+                    blankCount++;
+                    if(blankCount == randomVal){
+                        board[i][j] = 2;
+                    }
+                }
+            }
+        }
         }
     }
 
@@ -75,7 +88,11 @@ public class TwentyFortyEight {
 
     //The following four functions move the board in a single direction.
     public boolean moveUp(){
-        // TODO
+        for(int i = 0; i < board.length; i++){
+            for(int j = 1; j <board.length 0; j++){
+                if(board[i][j] == 0)
+            }
+        }
         return false;
     }
 
