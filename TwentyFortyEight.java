@@ -69,17 +69,23 @@ public class TwentyFortyEight {
                 (toRow < board.length && toRow >= 0)&&
                 (fromCol < board.length && fromCol >= 0)&&
                 (toCol < board.length && toCol >= 0)){
-            if(board[fromRow][fromCol] == 0){
-                return false;
-            }else if(board[toRow][toCol] == 0){
-                board[toRow][toCol] = board[fromRow][fromCol];
-                board[fromRow][fromCol] = 0;
-                return true;
-            }else if(board[fromRow][fromCol] == board[toRow][toCol]){
-                board[toRow][toCol] = board[toRow][toCol]*2;
-                board[fromRow][fromCol] = 0;
-                updateScore(board[toRow][toCol]);
-                return true;
+
+            if(((toCol == fromCol) && (Math.abs(toRow-fromRow) == 1)) || 
+                ((toRow == fromRow) && (Math.abs(toCol - fromCol) == 1))){
+                if(board[fromRow][fromCol] == 0){
+                    return false;
+                }else if(board[toRow][toCol] == 0){
+                    board[toRow][toCol] = board[fromRow][fromCol];
+                    board[fromRow][fromCol] = 0;
+                    return true;
+                }else if(board[fromRow][fromCol] == board[toRow][toCol]){
+                    board[toRow][toCol] = board[toRow][toCol]*2;
+                    board[fromRow][fromCol] = 0;
+                    updateScore(board[toRow][toCol]);
+                    return true;
+                }else{
+                    return false;
+                }
             }else{
                 return false;
             }
@@ -92,7 +98,11 @@ public class TwentyFortyEight {
     public boolean moveUp(){
         for(int i = 0; i < board.length; i++){
             for(int j = 1; j < board.length; j++){
-                moveTo(j,i,j-1,i);
+                int temp = j;
+                while(moveTo(j,i,temp-1,i)){
+                    moveTo(j,i,temp-1,i);
+                    temp--;
+                }
             }
         }return false;
     }
