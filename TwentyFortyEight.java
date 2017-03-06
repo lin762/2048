@@ -65,13 +65,8 @@ public class TwentyFortyEight {
     //This function attempts to move a cell at coordinates fromRow,fromCol to
     //the cell toRow,toCol. Refer to the handout for movement rules.
     public boolean moveTo(int fromRow, int fromCol, int toRow, int toCol) {
-        if((fromRow < board.length && fromRow >= 0)&&
-                (toRow < board.length && toRow >= 0)&&
-                (fromCol < board.length && fromCol >= 0)&&
-                (toCol < board.length && toCol >= 0)){
-
-            if(((toCol == fromCol) && (Math.abs(toRow-fromRow) == 1)) || 
-                ((toRow == fromRow) && (Math.abs(toCol - fromCol) == 1))){
+        if((fromRow < board.length && fromRow >= 0) && (toRow < board.length && toRow >= 0) && (fromCol < board.length && fromCol >= 0) && (toCol < board.length && toCol >= 0)){
+            if(((toCol == fromCol) && (Math.abs(toRow-fromRow) == 1)) || ((toRow == fromRow) && (Math.abs(toCol - fromCol) == 1))){
                 if(board[fromRow][fromCol] == 0){
                     return false;
                 }else if(board[toRow][toCol] == 0){
@@ -96,39 +91,47 @@ public class TwentyFortyEight {
 
     //The following four functions move the board in a single direction.
     public boolean moveUp(){
+        boolean test = false;
         for(int i = 0; i < board.length; i++){
             for(int j = 1; j < board.length; j++){
-                int temp = j;
-                while(moveTo(j,i,temp-1,i)){
-                    moveTo(j,i,temp-1,i);
-                    temp--;
+                if(moveTo(j,i,j-1,i)) {
+                    test = true;
                 }
             }
-        }return false;
+        }return test;
     }
 
     public boolean moveDown() {
+        boolean test = false;
         for(int i = 0; i < board.length; i++){
             for(int j = board.length-2; j >=0; j--){
-                moveTo(j,i,j+1,i);
+                if(moveTo(j,i,j+1,i)){
+                    test = true;
+                }
             }
-        }return false;
+        }return test;
     }
 
     public boolean moveRight() {
+        boolean test = false;
         for(int i = 0; i < board.length; i++){
             for(int j = board.length-2; j >= 0; j--){
-                moveTo(i,j,i,j+1);
+                if(moveTo(i,j,i,j+1)){
+                    test = true;
+                }
             }
-        }return false;
+        }return test;
     }
 
     public boolean moveLeft() {
+        boolean test = false;
         for(int i = 0; i < board.length; i++){
             for(int j = 1; j < board.length; j++){
-                moveTo(i,j,i,j-1);
+                if(moveTo(i,j,i,j-1)){
+                    test = true;
+                }
             }
-        }return false;
+        }return test;
     }
 
     ////////////////////////////////////////////////////////////////////////
@@ -233,3 +236,4 @@ public class TwentyFortyEight {
     }
 
 }
+    
